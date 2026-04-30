@@ -18,6 +18,17 @@ class WelcomeScreen extends StatelessWidget {
         ),
         child: Stack(
           children: [
+            // Velour Grand logo watermark
+            Positioned.fill(
+              child: Opacity(
+                opacity: 0.10,
+                child: Image.asset(
+                  'assets/images/velour_grand.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
             // Decorative circles
             _buildCircle(top: 60, left: -30, size: 120, opacity: 0.3),
             _buildCircle(top: 150, right: -20, size: 80, opacity: 0.2),
@@ -31,39 +42,16 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 60),
-                    // Icon
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.hotel,
-                        color: Colors.white,
-                        size: 60,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
+                    Container(),
+                    const SizedBox(height: 50),
                     const Text(
-                      'Hotel MS',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Welcome Back',
+                      'Welcome',
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: 18,
+                        fontSize: 50,
                       ),
                     ),
                     const Spacer(),
-                    // Sign In button
                     SizedBox(
                       width: double.infinity,
                       height: 52,
@@ -90,7 +78,6 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    // Sign Up button
                     SizedBox(
                       width: double.infinity,
                       height: 52,
@@ -129,7 +116,7 @@ class WelcomeScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         _socialIcon(Icons.facebook),
                         const SizedBox(width: 16),
-                        _socialIcon(Icons.close), // Twitter/X
+                        _socialIcon(Icons.close),
                       ],
                     ),
                     const SizedBox(height: 40),

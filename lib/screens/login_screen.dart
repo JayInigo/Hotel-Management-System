@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'checkin_list_screen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -13,6 +13,40 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+    Future<void> submitLogin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      _emailController.clear();
+      _passwordController.clear();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const CheckInListScreen()),
+      );
+    } on FirebaseAuthException catch (e) {
+      debugPrint('FirebaseAuthException code: ${e.code}');
+      String message;
+
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      }  else {
+        message = 'Login failed. Please try again.';
+      }
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: () {Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const CheckInListScreen()),
-                    );}
+                      onPressed: submitLogin
                       ,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF8B0000),
