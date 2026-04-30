@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'add_checkin_screen.dart';
+import 'welcome_screen.dart';
 
 class CheckInListScreen extends StatelessWidget {
   const CheckInListScreen({super.key});
@@ -46,8 +48,7 @@ class CheckInListScreen extends StatelessWidget {
                   child: Image.network(data['photoUrl'], height: 200, width: double.infinity, fit: BoxFit.cover),
                 ),
               const SizedBox(height: 16),
-              _detailRow('Business', data['businessName'] ?? ''),
-              _detailRow('Note', data['note'] ?? ''),
+              _detailRow('Client Name', data['clientName'] ?? ''),
               _detailRow('Room Type', data['roomType'] ?? ''),
               _detailRow('Guest Status', data['guestStatus'] ?? ''),
               _detailRow('Location', 'Lat: ${data['lat']?.toStringAsFixed(5)}, Lng: ${data['lng']?.toStringAsFixed(5)}'),
@@ -85,8 +86,36 @@ class CheckInListScreen extends StatelessWidget {
         title: const Text('Hotel Check-In Log',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFF8B0000),
-        iconTheme: const IconThemeData(color: Colors.white),
+        automaticallyImplyLeading: false,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.logout, color: Colors.white),
+          tooltip: 'Logout',
+          onPressed: () async {
+            final confirm = await showDialog<bool>(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: const Text('Logout?'),
+                content: const Text('Are you sure you want to log out?'),
+                actions: [
+                  TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+              ),
+            );
+            if (confirm == true) {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+                (route) => false,
+              );
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.push(
@@ -158,7 +187,7 @@ class CheckInListScreen extends StatelessWidget {
                                 child: const Icon(Icons.hotel, color: Color(0xFF8B0000)),
                               ),
                       ),
-                      title: Text(data['businessName'] ?? 'No Name',
+                      title: Text(data['clientName'] ?? data['clientName'] ?? 'Unknown Client',
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

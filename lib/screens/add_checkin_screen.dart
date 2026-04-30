@@ -123,7 +123,7 @@ class _AddCheckInScreenState extends State<AddCheckInScreen> {
           // Logo watermark
           Positioned.fill(
             child: Opacity(
-              opacity: 0.04,
+              opacity: 0.20,
               child: Image.asset(
                 'assets/images/velour_grand.png',
                 fit: BoxFit.contain,

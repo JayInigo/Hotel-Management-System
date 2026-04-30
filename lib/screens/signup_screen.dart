@@ -123,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: Column(
         children: [
-          // Top red section with logo watermark
+          // Top red section with logo
           Expanded(
             flex: 2,
             child: Container(
@@ -137,14 +137,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               child: Stack(
                 children: [
-                  // Logo watermark
+                  // Logo — fully visible, no transparency
                   Positioned.fill(
-                    child: Opacity(
-                      opacity: 0.10,
-                      child: Image.asset(
-                        'assets/images/velour_grand.png',
-                        fit: BoxFit.contain,
-                      ),
+                    child: Image.asset(
+                      'assets/images/velour_grand.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
                   _buildCircle(top: 40, right: 20, size: 100, opacity: 0.25),
@@ -159,12 +156,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             icon: const Icon(Icons.arrow_back, color: Colors.white),
                             onPressed: () => Navigator.pop(context),
                           ),
-                          const SizedBox(height: 16),
+                          const Spacer(),
                           const Text(
                             'Create Your',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 32,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -176,6 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          const SizedBox(height: 8),
                         ],
                       ),
                     ),
@@ -185,20 +183,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
 
-          // Bottom white section with subtle logo watermark
+          // Bottom white section with logo watermark — fully visible
           Expanded(
             flex: 5,
             child: Stack(
               children: [
                 Container(color: Colors.white),
-                // Subtle logo watermark on white
+                // Logo watermark on white — no transparency
                 Positioned.fill(
-                  child: Opacity(
-                    opacity: 0.04,
-                    child: Image.asset(
-                      'assets/images/velour_grand.png',
-                      fit: BoxFit.contain,
-                    ),
+                  child: Image.asset(
+                    'assets/images/velour_grand.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
                 SingleChildScrollView(

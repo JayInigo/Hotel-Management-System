@@ -18,14 +18,15 @@ class WelcomeScreen extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // Velour Grand logo watermark
-            Positioned.fill(
-              child: Opacity(
-                opacity: 0.10,
-                child: Image.asset(
-                  'assets/images/velour_grand.png',
-                  fit: BoxFit.contain,
-                ),
+            // Velour Grand logo — fully visible, no transparency
+            Positioned(
+              top: -90,
+              left: 0,
+              right: 0,
+              bottom: 120,
+              child: Image.asset(
+                'assets/images/velour_grand.png',
+                fit: BoxFit.contain,
               ),
             ),
 
@@ -44,13 +45,6 @@ class WelcomeScreen extends StatelessWidget {
                     const SizedBox(height: 60),
                     Container(),
                     const SizedBox(height: 50),
-                    const Text(
-                      'Welcome',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 50,
-                      ),
-                    ),
                     const Spacer(),
                     SizedBox(
                       width: double.infinity,

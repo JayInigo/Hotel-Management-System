@@ -70,6 +70,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   _buildCircle(top: 40, right: 20, size: 100, opacity: 0.25),
                   _buildCircle(top: 120, right: 80, size: 60, opacity: 0.15),
                   _buildCircle(bottom: 20, left: 20, size: 80, opacity: 0.2),
+
+                  // Full logo as background
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/images/velour_grand.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+
                   SafeArea(
                     child: Padding(
                       padding: const EdgeInsets.all(28),
@@ -80,23 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             icon: const Icon(Icons.arrow_back, color: Colors.white),
                             onPressed: () => Navigator.pop(context),
                           ),
-                          const SizedBox(height: 16),
-                          const Text(
-                            'Hello',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            'Sign in!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          const Spacer(),
                         ],
                       ),
                     ),
@@ -150,8 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: submitLogin
-                      ,
+                      onPressed: submitLogin,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF8B0000),
                         shape: RoundedRectangleBorder(
